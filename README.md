@@ -1,6 +1,7 @@
 # Entity Broadcaster Integration
 
-A Home Assistant custom integration that broadcasts entity state changes over UDP to the local network, allowing external applications to receive real-time updates.
+A Home Assistant custom integration that broadcasts entity state changes over UDP to the local network, allowing external applications to receive real-time updates. This is especially useful if you are programming for hardware that is not physically connected to the development PC but is connected to the production PC. Use it together with my other entity receiver at https://github.com/haedwin/homeassistant_entity_receiver
+
 
 ## Features
 
