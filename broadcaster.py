@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
-import asyncio
 import json
 import logging
 import socket
 from typing import Any
 
 from homeassistant.core import HomeAssistant, Event, callback
-from homeassistant.const import EVENT_STATE_CHANGED
 from homeassistant.helpers.event import async_track_state_change_event
 
-from .const import CONF_ENTITIES, CONF_UDP_PORT
+# from .const import CONF_ENTITIES, CONF_UDP_PORT
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -62,7 +60,7 @@ class EntityBroadcaster:
 
             return True
 
-        except Exception as err:
+        except OSError as err:
             _LOGGER.error("Failed to setup Entity Broadcaster '%s': %s", self.name, err)
             if self._socket:
                 self._socket.close()
@@ -126,7 +124,7 @@ class EntityBroadcaster:
                 self.udp_port,
             )
 
-        except Exception as err:
+        except OSError as err:
             _LOGGER.error("Failed to broadcast state change for %s: %s", entity_id, err)
 
     def _send_broadcast(self, data: bytes) -> None:
@@ -138,7 +136,7 @@ class EntityBroadcaster:
             # Also send to localhost for testing
             self._socket.sendto(data, ("127.0.0.1", self.udp_port))
 
-        except Exception as err:
+        except OSError as err:
             _LOGGER.error("Failed to send UDP broadcast: %s", err)
 
     async def async_update_entities(self, entities: list[str]) -> None:

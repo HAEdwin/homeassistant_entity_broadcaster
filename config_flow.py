@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import logging
+import socket
+from typing import Any
 import voluptuous as vol
-from typing import Any, Dict, Optional
+
 
 from homeassistant import config_entries
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import selector
 from homeassistant.helpers.entity_registry import async_get as async_get_entity_registry
@@ -165,7 +167,6 @@ class EntityBroadcasterConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     def _is_port_available(self, port: int) -> bool:
         """Check if the UDP port is available."""
-        import socket
 
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
@@ -192,9 +193,7 @@ class EntityBroadcasterOptionsFlow(config_entries.OptionsFlow):
         self._entities: list[str] = config_entry.data.get(CONF_ENTITIES, [])
         self._udp_port: int = config_entry.data.get(CONF_UDP_PORT, DEFAULT_UDP_PORT)
 
-    async def async_step_init(
-        self, user_input: dict[str, Any] | None = None
-    ) -> FlowResult:
+    async def async_step_init(self) -> FlowResult:
         """Manage the options."""
         return await self.async_step_entities()
 
@@ -294,7 +293,6 @@ class EntityBroadcasterOptionsFlow(config_entries.OptionsFlow):
 
     def _is_port_available(self, port: int) -> bool:
         """Check if the UDP port is available."""
-        import socket
 
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
