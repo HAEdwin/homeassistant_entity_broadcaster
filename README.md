@@ -1,6 +1,7 @@
 # Entity Broadcaster
 
 A Home Assistant custom integration that broadcasts entity state changes over UDP to the local network, allowing external applications to receive real-time updates. Works together with my other custom integration for Home Assistant called Entity Receiver.
+Use case: I have my production instance of Home Assistant in the meter cupboard and it is connected to my smart energy meter with a P1/USB cable. I am developing an integration for Home Assistant on a development laptop but do not have the live data from the meter available there. This is where this set of custom integrations comes in handy but you may have a different use case. Enjoy!
 
 ## Features
 
