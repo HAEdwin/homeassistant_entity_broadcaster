@@ -189,11 +189,13 @@ class EntityBroadcasterOptionsFlow(config_entries.OptionsFlow):
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Initialize options flow."""
-        self.config_entry = config_entry
+        super().__init__()
         self._entities: list[str] = config_entry.data.get(CONF_ENTITIES, [])
         self._udp_port: int = config_entry.data.get(CONF_UDP_PORT, DEFAULT_UDP_PORT)
 
-    async def async_step_init(self) -> FlowResult:
+    async def async_step_init(
+        self, _user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
         """Manage the options."""
         return await self.async_step_entities()
 
