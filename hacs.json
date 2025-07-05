@@ -1,7 +1,5 @@
 {
   "name": "Entity Broadcaster",
   "render_readme": true,
-  "domains": ["entity_broadcaster"],
-  "iot_class": "Local Push",
   "homeassistant": "2024.1.0"
 }
